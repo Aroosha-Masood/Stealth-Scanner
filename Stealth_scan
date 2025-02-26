@@ -1,0 +1,15 @@
+from scapy.all import *
+import random
+import time
+
+def stealth_scan(target_ip, target_ports, delay=1):
+    print("Starting Stealth Scanner Attack...")
+    for port in target_ports:
+        ip = IP(dst=target_ip)
+        tcp = TCP(sport=random.randint(1024, 65535), dport=port, flags="S")
+        packet = ip / tcp
+        send(packet, verbose=False)
+        time.sleep(delay)  # Slow scan to evade detection
+    print("Stealth Scanner Attack completed.")
+
+# Example Usage: stealth_scan("192.168.1.1", [22, 80, 443], delay=2)
